@@ -1,6 +1,16 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
+const { Pool } = require('pg');
+
+// Local development configuration
+const pool = new Pool({
+    user: 'juliagustafsson',
+    host: 'localhost',
+    database: 'intern_app_db',
+    password: '',
+    port: 5432,
+});
 
 const init = async () => {
 
