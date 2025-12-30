@@ -1,4 +1,20 @@
 {
+  "name": "project-dt193g-backend",
+  "version": "1.0.0",
+  "main": "install.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustafsson96/project-dt193g-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/gustafsson96/project-dt193g-backend#readme",
+  "description": "",
   "dependencies": {
     "@hapi/hapi": "^21.4.4",
     "dotenv": "^17.2.3"
