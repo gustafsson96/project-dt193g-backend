@@ -1,0 +1,44 @@
+'use strict';
+
+const { Pool } = require('pg');
+
+// Create a local PostgreSQL connection pool
+const pool = new Pool({
+    user: 'juliagustafsson',
+    host: 'localhost',
+    database: 'intern_app_db',
+    password: '',
+    port: 5432
+});
+
+// Create the "categories" and "products" tables if they don't exist
+(async () => {
+    try {
+        // Create categories table first
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS categories (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                description TEXT
+            )
+        `);
+        console.log('Table "categories" has been created');
+
+        // Create products table with foreign key to categories
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS products (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                description TEXT,
+                price DECIMAL(10,2) NOT NULL,
+                category_id INT REFERENCES categories(id) ON DELETE SET NULL,
+                color VARCHAR(50),
+                amount INT NOT NULL DEFAULT 0,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+        console.log('Table "products" has been created');
+    } catch (err) {
+        console.error('Error creating tables:', err);
+    }
+})();
