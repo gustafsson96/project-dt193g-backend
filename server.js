@@ -19,6 +19,10 @@ const init = async () => {
         host: 'localhost'
     });
 
+    // Import and register routes
+    const productRoutes = require('./routes/productRoutes')(pool);
+    server.route(productRoutes);
+
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
