@@ -1,6 +1,4 @@
 
-
-
 // Product routes for full CRUD functionality
 
 module.exports = (pool) => [

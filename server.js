@@ -23,6 +23,9 @@ const init = async () => {
     const productRoutes = require('./routes/productRoutes')(pool);
     server.route(productRoutes);
 
+    const categoryRoutes = require('./routes/categoryRoutes')(pool);
+    server.route(categoryRoutes);
+
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
