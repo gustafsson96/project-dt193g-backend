@@ -11,10 +11,27 @@ const pool = new Pool({
     port: 5432
 });
 
-// Create the "categories" and "products" tables if they don't exist
+// Create "users", "categories" and "products" tables if they don't exist
 (async () => {
     try {
-        // Create categories table first
+        // Create users table
+        await pool.query(`
+            CREATE TABLE users (
+                user_id SERIAL PRIMARY KEY,
+                username VARCHAR(50) NOT NULL UNIQUE,
+                password_hash VARCHAR(255) NOT NULL,
+                f_name VARCHAR(50) NOT NULL,
+                l_name VARCHAR(50) NOT NULL,
+                role VARCHAR(50) NOT NULL,
+                email VARCHAR(100) NOT NULL UNIQUE,
+                phone VARCHAR(20),
+                is_active BOOLEAN NOT NULL DEFAULT TRUE,
+                start_date DATE NOT NULL DEFAULT CURRENT_DATE
+            )
+        `);
+        console.log('Table "users" has been created');
+
+        // Create categories table
         await pool.query(`
             CREATE TABLE IF NOT EXISTS categories (
                 id SERIAL PRIMARY KEY,
