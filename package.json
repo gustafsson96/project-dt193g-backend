@@ -18,6 +18,7 @@
   "dependencies": {
     "@hapi/hapi": "^21.4.4",
     "@hapi/jwt": "^3.2.3",
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "joi": "^18.0.2",
     "pg": "^8.16.3"

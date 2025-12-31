@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const Hapi = require('@hapi/hapi');
 const jwtSetup = require('./auth')
 const { Pool } = require('pg');
