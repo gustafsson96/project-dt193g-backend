@@ -1,6 +1,7 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
+const jwtSetup = require('./auth')
 const { Pool } = require('pg');
 
 // Local development configuration
@@ -19,10 +20,16 @@ const init = async () => {
         host: 'localhost',
         routes: {
             cors: {
-                origin: ['*']
+                origin: ['*'],
+                credentials: true,
+                maxAge: 86400,
+                headers: ['Accept', 'Content-Type', 'Access-Control-Allow-Origin']
             }
         }
     });
+
+    // Set up jwt auth
+    await jwtSetup(server);
 
     // Import and register routes
     const productRoutes = require('./routes/productRoutes')(pool);
