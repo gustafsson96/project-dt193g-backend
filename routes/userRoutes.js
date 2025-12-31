@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const auth = require('../auth');
 
 // User routes for full CRUD functionality
 
@@ -78,7 +79,8 @@ module.exports = (pool) => [
                     phone: Joi.string().min(10).max(20).required(),
                     is_active: Joi.boolean().required()
                 })
-            }
+            },
+            auth: false,
         }
     },
     // Update a user
