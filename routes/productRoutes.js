@@ -1,3 +1,4 @@
+const Joi = require('joi');
 
 // Product routes for full CRUD functionality
 
@@ -34,6 +35,19 @@ module.exports = (pool) => [
                 console.error(err);
                 return h.response({ error: err.message }).code(500);
             }
+        },
+        // Joi POST validation
+        options: {
+            validate: {
+                payload: Joi.object({
+                    name: Joi.string().min(3).max(100).required(),
+                    description: Joi.string().min(3).max(1000).required(),
+                    price: Joi.number().required(),
+                    category_id: Joi.number().integer().required(),
+                    color: Joi.string().min(3).max(255).required(),
+                    amount: Joi.number().integer().required()
+                })
+            }
         }
     },
     // Update a product
@@ -67,6 +81,22 @@ module.exports = (pool) => [
                 console.error(err);
                 return h.response({ error: 'Failed to update product' }).code(500);
             }
+        },
+        // Joi PUT validation
+        options: {
+            validate: {
+                params: Joi.object({
+                    id: Joi.number().integer().required()
+                }),
+                payload: Joi.object({
+                    name: Joi.string().min(3).max(100).required(),
+                    description: Joi.string().min(3).max(1000).required(),
+                    price: Joi.number().required(),
+                    category_id: Joi.number().integer().required(),
+                    color: Joi.string().min(3).max(255).required(),
+                    amount: Joi.number().integer().required()
+                })
+            }
         }
     },
     // Delete a product
@@ -91,6 +121,14 @@ module.exports = (pool) => [
             } catch (err) {
                 console.error(err);
                 return h.response({ error: 'Failed to delete product' }).code(500);
+            }
+        },
+        // Joi DELETE validation
+        options: {
+            validate: {
+                params: Joi.object({
+                    id: Joi.number().integer().required()
+                })
             }
         }
     }

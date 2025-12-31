@@ -20,9 +20,9 @@ const pool = new Pool({
                 user_id SERIAL PRIMARY KEY,
                 username VARCHAR(50) NOT NULL UNIQUE,
                 password_hash VARCHAR(255) NOT NULL,
-                f_name VARCHAR(50) NOT NULL,
-                l_name VARCHAR(50) NOT NULL,
-                role VARCHAR(50) NOT NULL,
+                f_name VARCHAR(100) NOT NULL,
+                l_name VARCHAR(100) NOT NULL,
+                role VARCHAR(100) NOT NULL,
                 email VARCHAR(100) NOT NULL UNIQUE,
                 phone VARCHAR(20),
                 is_active BOOLEAN NOT NULL DEFAULT TRUE,
@@ -49,7 +49,7 @@ const pool = new Pool({
                 description TEXT,
                 price DECIMAL(10,2) NOT NULL,
                 category_id INT REFERENCES categories(id) ON DELETE SET NULL,
-                color VARCHAR(50),
+                color VARCHAR(255),
                 amount INT NOT NULL DEFAULT 0,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )

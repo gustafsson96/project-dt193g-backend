@@ -1,3 +1,4 @@
+const Joi = require('joi');
 
 // User routes for full CRUD functionality
 
@@ -32,6 +33,14 @@ module.exports = (pool) => [
                 console.error(err);
                 return h.response({ error: err.message }).code(500);
             }
+        },
+        // Joi GET params validation
+        options: {
+            validate: {
+                params: Joi.object({
+                    id: Joi.number().integer().required()
+                })
+            }
         }
     },
     // Add new user
@@ -54,6 +63,21 @@ module.exports = (pool) => [
             } catch (err) {
                 console.error(err);
                 return h.response({ error: err.message }).code(500);
+            }
+        },
+        // Joi PUT validation
+        options: {
+            validate: {
+                payload: Joi.object({
+                    username: Joi.string().min(3).max(50).required(),
+                    password_hash: Joi.string().min(3).max(255).required(), // Update with different type after adding hashing?
+                    f_name: Joi.string().min(3).max(100).required(),
+                    l_name: Joi.string().min(3).max(100).required(),
+                    role: Joi.string().min(3).max(100).required(),
+                    email: Joi.string().email().lowercase().max(255).required(),
+                    phone: Joi.string().min(10).max(20).required(),
+                    is_active: Joi.boolean().required()
+                })
             }
         }
     },
@@ -89,6 +113,24 @@ module.exports = (pool) => [
                 console.error(err);
                 return h.response({ error: 'Failed to update user' }).code(500);
             }
+        },
+        // Joi PUT validation
+        options: {
+            validate: {
+                params: Joi.object({
+                    id: Joi.number().integer().required()
+                }),
+                payload: Joi.object({
+                    username: Joi.string().min(3).max(50).required(),
+                    password_hash: Joi.string().min(3).max(255).required(), // Update with different type after adding hashing?
+                    f_name: Joi.string().min(3).max(100).required(),
+                    l_name: Joi.string().min(3).max(100).required(),
+                    role: Joi.string().min(3).max(100).required(),
+                    email: Joi.string().email().lowercase().max(255).required(),
+                    phone: Joi.string().min(10).max(20).required(),
+                    is_active: Joi.boolean().required()
+                })
+            }
         }
     },
     // Delete a user
@@ -113,6 +155,14 @@ module.exports = (pool) => [
             } catch (err) {
                 console.error(err);
                 return h.response({ error: 'Failed to delete user' }).code(500);
+            }
+        },
+        // Joi DELETE validation
+        options: {
+            validate: {
+                params: Joi.object({
+                    id: Joi.number().integer().required()
+                })
             }
         }
     }

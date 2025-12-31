@@ -1,4 +1,6 @@
 
+const Joi = require('joi');
+
 // Category routes for full CRUD functionality
 
 module.exports = (pool) => [
@@ -34,6 +36,15 @@ module.exports = (pool) => [
                 console.error(err);
                 return h.response({ error: err.message }).code(500);
             }
+        },
+        // Joi POST validation
+        options: {
+            validate: {
+                payload: Joi.object({
+                    name: Joi.string().min(3).max(100).required(),
+                    description: Joi.string().min(3).max(1000).required()
+                })
+            }
         }
     },
     // Update a category
@@ -63,6 +74,18 @@ module.exports = (pool) => [
                 console.error(err);
                 return h.response({ error: 'Failed to update category' }).code(500);
             }
+        },
+        // Joi PUT validation
+        options: {
+            validate: {
+                params: Joi.object({
+                    id: Joi.number().integer().required()
+                }),
+                payload: Joi.object({
+                    name: Joi.string().min(3).max(100).required(),
+                    description: Joi.string().min(3).max(1000).required()
+                })
+            }
         }
     },
     // Delete a category
@@ -87,6 +110,14 @@ module.exports = (pool) => [
             } catch (err) {
                 console.error(err);
                 return h.response({ error: 'Failed to delete category' }).code(500);
+            }
+        },
+        // Joi DELETE validation
+        options: {
+            validate: {
+                params: Joi.object({
+                    id: Joi.number().integer().required()
+                })
             }
         }
     }
