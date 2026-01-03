@@ -22,33 +22,6 @@ module.exports = (pool) => [
             auth: 'jwt'
         }
     },
-    // Get a user based on id
-    {
-        method: 'GET',
-        path: '/users/{id}',
-        handler: async (request, h) => {
-            const { id } = request.params;
-            try {
-                const res = await pool.query('SELECT user_id, username, f_name, l_name, role, email, phone, is_active, start_date FROM users WHERE user_id = $1', [id]);
-                if (res.rowCount === 0) {
-                    return h.response({ error: 'User not found' }).code(404);
-                }
-                return h.response(res.rows[0]).code(200);
-            } catch (err) {
-                console.error(err);
-                return h.response({ error: 'Failed to fetch user' }).code(500);
-            }
-        },
-        // Require jwt and validate with Joi
-        options: {
-            auth: 'jwt',
-            validate: {
-                params: Joi.object({
-                    id: Joi.number().integer().required()
-                })
-            }
-        }
-    },
     // Add new user
     {
         method: 'POST',
