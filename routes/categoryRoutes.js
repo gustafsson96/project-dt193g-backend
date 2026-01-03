@@ -18,6 +18,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to fetch categories' }).code(500);
             }
         },
+        // Require jwt
         options: {
             auth: 'jwt'
         }
@@ -41,7 +42,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to create category' }).code(500);
             }
         },
-        // Joi POST validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {
@@ -80,7 +81,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to update category' }).code(500);
             }
         },
-        // Joi PUT validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {
@@ -118,7 +119,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to delete category' }).code(500);
             }
         },
-        // Joi DELETE validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {

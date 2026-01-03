@@ -25,6 +25,7 @@ module.exports = (pool) => [
                 console.error(err);
                 return h.response({ error: 'Failed to fetch products' }).code(500);
             }
+        // Require jwt
         },
         options: {
             auth: 'jwt'
@@ -49,7 +50,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to create product' }).code(500);
             }
         },
-        // Joi POST validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {
@@ -96,7 +97,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to update product' }).code(500);
             }
         },
-        // Joi PUT validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {
@@ -138,7 +139,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to delete product' }).code(500);
             }
         },
-        // Joi DELETE validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {

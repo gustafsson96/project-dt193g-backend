@@ -17,6 +17,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to fetch users' }).code(500);
             }
         },
+        // Require jwt
         options: {
             auth: 'jwt'
         }
@@ -38,7 +39,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to fetch user' }).code(500);
             }
         },
-        // Joi GET params validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {
@@ -70,7 +71,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to create user' }).code(500);
             }
         },
-        // Joi PUT validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {
@@ -120,7 +121,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to update user' }).code(500);
             }
         },
-        // Joi PUT validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {
@@ -164,7 +165,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to delete user' }).code(500);
             }
         },
-        // Joi DELETE validation
+        // Require jwt and validate with Joi
         options: {
             auth: 'jwt',
             validate: {
