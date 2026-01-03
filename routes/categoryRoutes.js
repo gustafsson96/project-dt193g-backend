@@ -1,5 +1,6 @@
 
 const Joi = require('joi');
+const auth = require('../auth');
 
 // Category routes for full CRUD functionality
 
@@ -14,8 +15,11 @@ module.exports = (pool) => [
                 return h.response(res.rows).code(200);
             } catch (err) {
                 console.error(err);
-                return h.response({ error: err.message }).code(500);
+                return h.response({ error: 'Failed to fetch categories' }).code(500);
             }
+        },
+        options: {
+            auth: 'jwt'
         }
     },
     // Add new category
@@ -34,11 +38,12 @@ module.exports = (pool) => [
                 return h.response(result.rows[0]).code(201);
             } catch (err) {
                 console.error(err);
-                return h.response({ error: err.message }).code(500);
+                return h.response({ error: 'Failed to create category' }).code(500);
             }
         },
         // Joi POST validation
         options: {
+            auth: 'jwt',
             validate: {
                 payload: Joi.object({
                     name: Joi.string().min(3).max(100).required(),
@@ -77,6 +82,7 @@ module.exports = (pool) => [
         },
         // Joi PUT validation
         options: {
+            auth: 'jwt',
             validate: {
                 params: Joi.object({
                     id: Joi.number().integer().required()
@@ -102,7 +108,7 @@ module.exports = (pool) => [
                 );
 
                 if (result.rowCount === 0) {
-                    return h.response({ error: 'category not found' }).code(404);
+                    return h.response({ error: 'Category not found' }).code(404);
                 }
 
                 return h.response(result.rows[0]).code(200);
@@ -114,6 +120,7 @@ module.exports = (pool) => [
         },
         // Joi DELETE validation
         options: {
+            auth: 'jwt',
             validate: {
                 params: Joi.object({
                     id: Joi.number().integer().required()
