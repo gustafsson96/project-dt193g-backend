@@ -34,17 +34,17 @@ const init = async () => {
     await jwtSetup(server);
 
     // Import and register routes
-    const productRoutes = require('./routes/productRoutes')(pool);
-    server.route(productRoutes);
-
-    const categoryRoutes = require('./routes/categoryRoutes')(pool);
-    server.route(categoryRoutes);
+    const authRoutes = require('./routes/authRoutes')(pool);
+    server.route(authRoutes);
 
     const userRoutes = require('./routes/userRoutes')(pool);
     server.route(userRoutes);
 
-    const authRoutes = require('./routes/authRoutes')(pool);
-    server.route(authRoutes);
+    const categoryRoutes = require('./routes/categoryRoutes')(pool);
+    server.route(categoryRoutes);
+
+    const productRoutes = require('./routes/productRoutes')(pool);
+    server.route(productRoutes);
 
     await server.start();
     console.log('Server running on %s', server.info.uri);
