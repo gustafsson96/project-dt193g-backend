@@ -25,7 +25,8 @@ const init = async () => {
                 origin: ['*'],
                 credentials: true,
                 maxAge: 86400,
-                headers: ['Accept', 'Content-Type', 'Access-Control-Allow-Origin']
+                headers: ['Accept', 'Content-Type'],
+                additionalHeaders: ['authorization']
             }
         }
     });
