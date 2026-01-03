@@ -8,14 +8,24 @@ module.exports = (pool) => [
         method: 'GET',
         path: '/products',
         handler: async (request, h) => {
+            const { category_id } = request.query;
+
             try {
-                const res = await pool.query('SELECT * FROM products');
+                let query = 'SELECT * FROM products';
+                let params = [];
+
+                if (category_id) {
+                    query += ' WHERE category_id = $1';
+                    params.push(category_id);
+                }
+
+                const res = await pool.query(query, params);
                 return h.response(res.rows).code(200);
             } catch (err) {
                 console.error(err);
                 return h.response({ error: 'Failed to fetch products' }).code(500);
             }
-        }, 
+        },
         options: {
             auth: 'jwt'
         }
