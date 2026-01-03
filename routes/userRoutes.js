@@ -14,8 +14,11 @@ module.exports = (pool) => [
                 return h.response(res.rows).code(200);
             } catch (err) {
                 console.error(err);
-                return h.response({ error: err.message }).code(500);
+                return h.response({ error: 'Failed to fetch users' }).code(500);
             }
+        },
+        options: {
+            auth: 'jwt'
         }
     },
     // Get a user based on id
@@ -32,11 +35,12 @@ module.exports = (pool) => [
                 return h.response(res.rows[0]).code(200);
             } catch (err) {
                 console.error(err);
-                return h.response({ error: err.message }).code(500);
+                return h.response({ error: 'Failed to fetch user' }).code(500);
             }
         },
         // Joi GET params validation
         options: {
+            auth: 'jwt',
             validate: {
                 params: Joi.object({
                     id: Joi.number().integer().required()
@@ -63,11 +67,12 @@ module.exports = (pool) => [
                 return h.response(result.rows[0]).code(201);
             } catch (err) {
                 console.error(err);
-                return h.response({ error: err.message }).code(500);
+                return h.response({ error: 'Failed to create user' }).code(500);
             }
         },
         // Joi PUT validation
         options: {
+            auth: 'jwt',
             validate: {
                 payload: Joi.object({
                     username: Joi.string().min(3).max(50).required(),
@@ -79,8 +84,7 @@ module.exports = (pool) => [
                     phone: Joi.string().min(10).max(20).required(),
                     is_active: Joi.boolean().required()
                 })
-            },
-            auth: false,
+            }
         }
     },
     // Update a user
@@ -118,6 +122,7 @@ module.exports = (pool) => [
         },
         // Joi PUT validation
         options: {
+            auth: 'jwt',
             validate: {
                 params: Joi.object({
                     id: Joi.number().integer().required()
@@ -161,6 +166,7 @@ module.exports = (pool) => [
         },
         // Joi DELETE validation
         options: {
+            auth: 'jwt',
             validate: {
                 params: Joi.object({
                     id: Joi.number().integer().required()
