@@ -23,6 +23,4 @@ module.exports = async (server) => {
             };
         }
     });
-
-    server.auth.default('jwt');
 };

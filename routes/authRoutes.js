@@ -10,19 +10,18 @@ module.exports = (pool) => [
             const { username, password, f_name, l_name, email, phone } = request.payload;
 
             try {
-                // Hash password before storing
                 const hashedPassword = await bcrypt.hash(password, 10);
 
                 const result = await pool.query(
-                    `INSERT INTO users (username, password_hash, f_name, l_name, email, phone, role, is_active)
-                    VALUES ($1, $2, $3, $4, $5, $6, 'user', true)
-                    RETURNING user_id, username, f_name, l_name, email, phone, role, is_active`,
-                   [username, hashedPassword, f_name, l_name, email, phone]
+                    `INSERT INTO users (username, password_hash, f_name, l_name, role, email, phone, is_active)
+                 VALUES ($1, $2, $3, $4, $5, $6, $7, true)
+                 RETURNING user_id, username, f_name, l_name, email, phone, role, is_active`,
+                    [username, hashedPassword, f_name, l_name, 'user', email, phone || null]
                 );
-                return h.response(result.row[0]).code(201);
+                return h.response(result.rows[0]).code(201);
             } catch (err) {
                 console.error(err);
-                return h.response({ error: 'Failed to create user '}).code(500);
+                return h.response({ error: 'Failed to create user ' }).code(500);
             }
         },
         options: {
@@ -51,16 +50,16 @@ module.exports = (pool) => [
                     [username]
                 );
 
-                if(result.rowCount === 0) {
-                    return h.response({ error: 'Invalid username or password'}).code(401);
+                if (result.rowCount === 0) {
+                    return h.response({ error: 'Invalid username or password' }).code(401);
                 }
 
                 const user = result.rows[0];
 
                 // Place this functionality in its own controller file? 
                 const isValid = await bcrypt.compare(password, user.password_hash);
-                if(!isValid) {
-                    return h.response({ error: 'Invalid username or password'}).code(401);
+                if (!isValid) {
+                    return h.response({ error: 'Invalid username or password' }).code(401);
                 }
 
                 const token = Jwt.token.generate(
@@ -75,7 +74,7 @@ module.exports = (pool) => [
                         algorithm: 'HS256'
                     },
                     {
-                        ttlSec: 24* 60 * 60
+                        ttlSec: 24 * 60 * 60
                     }
                 );
 
@@ -86,7 +85,7 @@ module.exports = (pool) => [
             }
         },
         options: {
-            auth: false, 
+            auth: false,
             validate: {
                 payload: Joi.object({
                     username: Joi.string().required(),
