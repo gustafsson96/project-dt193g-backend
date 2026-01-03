@@ -24,9 +24,7 @@ const init = async () => {
             cors: {
                 origin: ['*'],
                 credentials: true,
-                maxAge: 86400,
-                headers: ['Accept', 'Content-Type'],
-                additionalHeaders: ['authorization']
+                headers: ['Accept', 'Content-Type', 'Authorization'] 
             }
         }
     });
