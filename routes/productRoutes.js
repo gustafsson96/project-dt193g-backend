@@ -25,7 +25,7 @@ module.exports = (pool) => [
                 console.error(err);
                 return h.response({ error: 'Failed to fetch products' }).code(500);
             }
-        // Require jwt
+            // Require jwt
         },
         options: {
             auth: 'jwt'
@@ -112,6 +112,38 @@ module.exports = (pool) => [
                     color: Joi.string().min(3).max(255).required(),
                     amount: Joi.number().integer().required()
                 })
+            }
+        }
+    },
+    // Update amount for a product
+    {
+        method: 'PATCH',
+        path: '/products/{id}/amount',
+        handler: async (request, h) => {
+            const { id } = request.params;
+            const { amount } = request.payload;
+
+            try {
+                const result = await pool.query(
+                    'UPDATE products SET amount = $1 WHERE id = $2 RETURNING *',
+                    [amount, id]
+                );
+
+                if (result.rowCount === 0) {
+                    return h.response({ error: 'Product not found' }).code(404);
+                }
+
+                return h.response(result.rows[0]).code(200);
+            } catch (err) {
+                console.error(err);
+                return h.response({ error: 'Failed to update amount' }).code(500);
+            }
+        },
+        options: {
+            auth: 'jwt',
+            validate: {
+                params: Joi.object({ id: Joi.number().integer().required() }),
+                payload: Joi.object({ amount: Joi.number().integer().required() })
             }
         }
     },
