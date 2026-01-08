@@ -33,7 +33,7 @@ module.exports = (pool) => [
                     f_name: Joi.string().min(2).max(100).required(),
                     l_name: Joi.string().min(2).max(100).required(),
                     email: Joi.string().email().required().required(),
-                    phone: Joi.string().min(10).max(12).required()
+                    phone: Joi.string().pattern(/^[0-9]+$/).min(10).max(12).required()
                 })
             }
         }
