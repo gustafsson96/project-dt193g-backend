@@ -32,8 +32,8 @@ module.exports = (pool) => [
                     password: Joi.string().min(6).max(255).required(),
                     f_name: Joi.string().min(2).max(100).required(),
                     l_name: Joi.string().min(2).max(100).required(),
-                    email: Joi.string().email().required(),
-                    phone: Joi.string().min(10).max(20).optional()
+                    email: Joi.string().email().required().required(),
+                    phone: Joi.string().min(10).max(12).required()
                 })
             }
         }
