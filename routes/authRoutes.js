@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { loginUser } = require('../controllers/authController')
 
 module.exports = (pool) => [
     {
