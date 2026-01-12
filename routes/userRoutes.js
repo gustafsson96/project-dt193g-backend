@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const auth = require('../auth');
 
 // User routes for full CRUD functionality
 
@@ -44,7 +43,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to create user' }).code(500);
             }
         },
-        // Require jwt and validate with Joi
+        // Require jwt and validate with joi
         options: {
             auth: 'jwt',
             validate: {
@@ -94,7 +93,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to update user' }).code(500);
             }
         },
-        // Require jwt and validate with Joi
+        // Require jwt and validate with joi
         options: {
             auth: 'jwt',
             validate: {
@@ -138,7 +137,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to delete user' }).code(500);
             }
         },
-        // Require jwt and validate with Joi
+        // Require jwt and validate with joi
         options: {
             auth: 'jwt',
             validate: {

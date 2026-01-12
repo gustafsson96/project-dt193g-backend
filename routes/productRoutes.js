@@ -97,7 +97,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to update product' }).code(500);
             }
         },
-        // Require jwt and validate with Joi
+        // Require jwt and validate with joi
         options: {
             auth: 'jwt',
             validate: {

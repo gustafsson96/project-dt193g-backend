@@ -2,6 +2,7 @@ const Joi = require('joi');
 const { loginUser } = require('../controllers/authController')
 
 module.exports = (pool) => [
+    /* Signup route */
     {
         method: 'POST',
         path: '/signup',
@@ -23,6 +24,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Failed to create user ' }).code(500);
             }
         },
+        /* Set authentiaction to false and validate with joi */
         options: {
             auth: false,
             validate: {
@@ -37,6 +39,7 @@ module.exports = (pool) => [
             }
         }
     },
+    /* Login route */
     {
         method: 'POST',
         path: '/login',
@@ -56,6 +59,7 @@ module.exports = (pool) => [
                 return h.response({ error: 'Login failed' }).code(500);
             }
         },
+        /* Set authentiaction to false and validate with joi */
         options: {
             auth: false,
             validate: {

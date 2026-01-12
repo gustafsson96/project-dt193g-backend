@@ -5,7 +5,7 @@ const auth = require('../auth');
 // Category routes for full CRUD functionality
 
 module.exports = (pool) => [
-    // Get all category
+    // Get all categories
     {
         method: 'GET',
         path: '/categories',
