@@ -21,6 +21,7 @@ Användargrässnitt: **[Användargränssnitt](https://github.com/gustafsson96/pr
 
 | Metod | Endpoint | Beskrivning | Skyddad med JWT |
 |-------|----------|-------------|----------------|
+| GET | / | Presenterar ett välkomstmeddelande. | Nej |
 | POST | /signup | Registrerar nya användare. Lösenord hashas med bcrypt innan de lagras i databasen. | Nej |
 | POST | /login | Autentiserar en användare baserat på användarnamn och lösenord och returnerar ett JWT-token. | Nej |
 | GET | /categories | Hämtar alla lagrade kategorier. | Ja |
