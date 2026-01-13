@@ -3,6 +3,14 @@ const { loginUser } = require('../controllers/authController')
 const bcrypt = require('bcrypt');
 
 module.exports = (pool) => [
+    // Root route
+    {
+        method: 'GET',
+        path: '/',
+        handler: (req, h) => {
+          return { message: 'Welcome to the API for Cozy Cats intranet!' };
+        }
+    },
     /* Signup route */
     {
         method: 'POST',
