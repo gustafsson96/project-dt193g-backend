@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { loginUser } = require('../controllers/authController')
+const bcrypt = require('bcrypt');
 
 module.exports = (pool) => [
     /* Signup route */
