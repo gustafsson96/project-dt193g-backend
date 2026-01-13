@@ -52,9 +52,6 @@ const init = async () => {
     await jwtSetup(server);
 
     // Import and register routes
-    const installRoutes = require('./routes/installRoute')(pool);
-    server.route(installRoutes);
-
     const authRoutes = require('./routes/authRoutes')(pool);
     server.route(authRoutes);
 
