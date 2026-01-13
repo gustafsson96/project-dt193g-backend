@@ -6,7 +6,7 @@ const Hapi = require('@hapi/hapi');
 const jwtSetup = require('./auth')
 const { Pool } = require('pg');
 
-// Local development configuration
+/* Local development configuration
 const pool = new Pool({
     user: 'juliagustafsson',
     host: 'localhost',
@@ -14,12 +14,31 @@ const pool = new Pool({
     password: '',
     port: 5432,
 });
+*/
+
+if (!process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL is missing');
+}
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === 'production'
+        ? { rejectUnauthorized: false }
+        : false
+});
+
+pool.query('SELECT 1')
+    .then(() => console.log('Database connected'))
+    .catch(err => {
+        console.error('Database connection error', err);
+        process.exit(1);
+    });
 
 const init = async () => {
 
     const server = Hapi.server({
-        port: 5000,
-        host: 'localhost',
+        port: process.env.PORT || 5000,
+        host: '0.0.0.0',
         routes: {
             cors: {
                 origin: ['*'],
