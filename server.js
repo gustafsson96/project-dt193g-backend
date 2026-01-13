@@ -43,7 +43,7 @@ const init = async () => {
             cors: {
                 origin: ['*'],
                 credentials: true,
-                headers: ['Accept', 'Content-Type', 'Authorization'] 
+                headers: ['Accept', 'Content-Type', 'Authorization']
             }
         }
     });
@@ -52,6 +52,9 @@ const init = async () => {
     await jwtSetup(server);
 
     // Import and register routes
+    const installRoutes = require('./routes/installRoute')(pool);
+    server.route(installRoutes);
+
     const authRoutes = require('./routes/authRoutes')(pool);
     server.route(authRoutes);
 
