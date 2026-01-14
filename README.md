@@ -1,11 +1,13 @@
 # Projekt "Cozy Cat Intranet" (DT193G)
 
-Den här delen av projektet är ett API skapat med ramverket Hapi.js. Det innehåller routes för full CRUD-funktionalitet för produkter, produktkategorier och användare för det fiktiva företaget Cozy Cats intranät. Det innehåller även routes för inloggning och registrering. 
+Den här delen av projektet är ett API skapat med ramverket Hapi.js. API:et innehåller routes för full CRUD-funktionalitet för produkter, produktkategorier och användare för det fiktiva företaget Cozy Cats intranät. Det innehåller även routes för inloggning och registrering. 
 
 Lösningen för det här projektet utgörs av två delar:
 
-REST API: Presenteras i detta repository
-Användargrässnitt: **[Användargränssnitt](https://github.com/gustafsson96/project-dt193g-frontend.git)** 
+* REST API: Presenteras i detta repository
+* Användargrässnitt: **[Användargränssnitt](https://github.com/gustafsson96/project-dt193g-frontend.git)** 
+
+Länk till den publicerade webbtjänsten: **[API](https://project-dt193g-backend.onrender.com/)**
 
 ## Funktionalitet
 * **Hapi.js:** API:et är skapat med ramverket Hapi.js och körs med en Hapi-server. 
@@ -47,3 +49,19 @@ Användargrässnitt: **[Användargränssnitt](https://github.com/gustafsson96/pr
 5. Skapa en .env-fil i projektets rotmapp och lägg till följande variabel: JWT_SECRET=hemlig_nyckel_här
 6. Kör installationsskriptet för att skapa nödvändiga tabeller i databasen: node install.js
 7. Starta Hapi-servern: npm run start
+
+## Publicering
+
+API:et har publicerats till Render via följande steg: 
+1. Gå in på https://render.com och logga in via GitHub. 
+2. Klicka på "New" och välj "Web Service".
+3. Sök efter Github-repositoryt för API:et. 
+4. Fyll i ett namn för web servicen. 
+5. Säkerställ att fälten är ifyllda enligt följande:
+    * Language: Node
+    * Branch: main
+    * Build Command: npm install
+    * Start Command: node server.js
+6. För Instance Type, välj "Free". 
+7. Lägg till Environment Variables för databasanslutning och JWT.
+8. Klicka på "Deploy Web Service". 
